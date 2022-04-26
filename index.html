@@ -95,8 +95,80 @@
                 </h5>
             </div>
             <div class="step">
-                <h2 class="red"></h2>
-               
+                <h2 class="red">REQUEST</h2>
+                <blockquote class="medium"><strong>Makrofunktion zum Informationsabruf von WWW-Servern</strong>
+                    <br/><br/>
+                    <strong>REQUEST (url, query)</strong> ruft eine HTML-Seite von einem WWW-Server ab oder ruft ein CGI-Script auf einem WWW-Server auf. Die URL der HTML-Seite bzw. des CGI-Scripts muss mit dem Argument <code>url</code> angegeben werden. Für das Argument <code>url</code> kann eine Variable oder eine in Anführungszeichen eingeschlossene Zeichenfolge angegeben werden. <!--Erwartet ein CGI-Script einen Querystring (METHODE=GET), kann für das Argument <code>query</code> eine Variable oder eine in Anführungszeichen eingeschlossene Zeichenfolge angegeben werden; erwartet ein CGI-Script Daten von der Standard- Eingabe (METHODE=POST), kann für das Argument <code>query</code> eine Sternvariable ange- geben werden; andernfalls kann das Argument <code>query</code> einschließlich des davor stehenden Kommas weggelassen werden.--><br/>
+                    <br/>Die Antwort des WWW-Servers wird (zum Speichern in einer Sternvariablen) als Funktionswert geliefert. In der Regel muss die Antwort noch von ISO-8859-1 oder UTF-8 nach TUSTEP umcodiert werden.</blockquote>
+            <p class="x-small right">Handbuch, 509</p></div>
+            <div class="step">
+                <h2><code>REQUEST</code></h2>
+                <pre><code  class="linenumbers">$$ MODE TUSCRIPT,{},MAC
+
+url="https://www.itug.de"
+daten=REQUEST (url)
+
+daten=DECODE(daten,UTF8)
+</code></pre>
+            </div>
+            <div class="step">
+                <h2 class="red">Googletabelle <code>google01</code></h2>
+                <p>Beispieltabelle:</p>
+                <pre class="up-25 xml"><code style="font-size:1.5rem">https://docs.google.com/spreadsheets/d/1SvgPoosblTDqQ4RBsWjBwAyTeWhIT5CQet9KiiUi7GA/edit#gid=0</code></pre>
+                <div class="substep">
+                    <p>Problem: <span class="highlight">so geht es nicht !</span></p>
+                    <pre><code  class="linenumbers">$$ MODE TUSCRIPT,{},MAC
+url="https://docs.google.com/spreadsheets/d/1SvgPoosblTDqQ4RBsWjBwAyTeWhIT5CQet9KiiUi7GA/edit#gid=0"
+                        
+daten=REQUEST (url)
+</code></pre>
+                </div>
+            </div>
+            <div class="step">
+                <h2 class="red">Googletabelle veröffentlichen</h2>
+                <div class="row">
+                    <div class="six columns">
+                        <figure class="mfp-lightbox"><a href="resources/img/google_Freigabe01.png">
+                            <img src="resources/img/google_Freigabe01.png" alt="Google im Web veröffentlichen 1"/></a></figure>
+                            </div>
+                            <div class="six columns">
+                                <figure class="mfp-lightbox"><a href="resources/img/google_Freigabe02.png"><img src="resources/img/google_Freigabe02.png" alt="Gooble im Web veröffentlichen 2"/></a></figure>
+                            </div>
+                </div>
+                        
+                    
+                <p>Freigabelink:</p>
+                <pre><code style="font-size:1.5rem">https://docs.google.com/spreadsheets/d/e/2PACX-1vTNAjIaR4yS49Ztyd-a8IKY9UWfadKA3eMGFGrydrUow0e07-sS-MTiiY-s1lSI5Ciqw9N3eXlhXRyN/pub?gid=0&amp;single=true&amp;output=tsv</code></pre>
+            </div>
+            <div class="step"><h2><code>google02</code></h2>
+                <p>Problem: <span class="highlight">so geht es immer noch nicht !</span></p>
+                <pre><code class="linenumbers">$$ MODE TUSCRIPT,{},MAC
+url="https://docs.google.com/spreadsheets/d/e/2PACX-1vTNAjIaR4yS49Ztyd-a8IKY9UWfadKA3eMGFGrydrUow0e07-sS-MTiiY-s1lSI5Ciqw9N3eXlhXRyN/pub?gid=0&amp;single=true&amp;output=tsv"
+daten=REQUEST (url)
+</code></pre>
+            </div>
+            <div class="step">
+                <h2>erweitertes REQUEST <code>google03</code></h2>
+<pre><code class="linenumbers">$$ MODE TUSCRIPT,{},MAC
+url="https://docs.google.com/spreadsheets/d/e/2PACX-1vTNAjIaR4yS49Ztyd-a8IKY9UWfadKA3eMGFGrydrUow0e07-sS-MTiiY-s1lSI5Ciqw9N3eXlhXRyN/pub?gid=0&amp;single=true&amp;output=tsv"
+
+empty=httpstatus=httpheader=*
+daten=REQUEST (url,"",empty,httpstatus,httpheader)
+
+status = SELECT (httpheader, 1)
+
+status = EXTRACT (status, ": :"|, ": :")
+
+IF (status.EQ."307")  THEN
+  urllocation = GET_VALUE (httpheader, "location:")
+  empty = httpstatus = httpheader = *
+  daten = REQUEST (urllocation, "", empty,httpstatus, httpheader)
+ENDIF
+
+daten=DECODE (daten,UTF8)
+TRACE
+x=SPLIT (daten," #\[0009\] ",names,userssince)
+</code></pre>               
             </div>
            
         </div>
