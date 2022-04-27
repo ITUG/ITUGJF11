@@ -116,7 +116,7 @@
                     oder UTF-8 nach TUSTEP umcodiert werden.</blockquote>
                 <p class="x-small right">Handbuch, 509</p>
             </div>
-            <div class="step">
+            <div class="step" id="request">
                 <h2 class="red">HTML-Seite</h2>
                 <pre><code class="linenumbers">$$ MODE TUSCRIPT,{},MAC
 
@@ -174,23 +174,23 @@ daten=REQUEST (url)
 </code></pre>
                 <p class="right x-small">Segment <code>google02</code> aus Segmentdatei <code>skripte</code></p>
             </div>
-            <div class="step">
+            <div class="step" id="google03">
                 <h2 class="red">erweitertes REQUEST</h2>
                 <p class="small">Das folgende Skript fragt im httpheader den <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" target="_blank">http status code</a> ab. Bei Status <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307" target="_blank">307</a> wird die eigentliche <code>location</code> des Dokumentes ermittelt.
                 <pre><code class="linenumbers">$$ MODE TUSCRIPT,{},MAC
 url="https://docs.google.com/spreadsheets/d/e/2PACX-1vTNAjIaR4yS49Ztyd-a8IKY9UWfadKA3eMGFGrydrUow0e07-sS-MTiiY-s1lSI5Ciqw9N3eXlhXRyN/pub?gid=0&amp;single=true&amp;output=tsv"
 
 query=""
-empty=httpstatus=httpheader=*
-daten=REQUEST (url,query,empty,httpstatus,httpheader)
+anfragehdr=httpstatus=antworthdr=*
+daten=REQUEST (url,query,anfragehdr,httpstatus,antworthdr)
 
-status = SELECT (httpheader, 1)
+status = SELECT (antworthdr, 1)
 status = EXTRACT (status, ": :"|, ": :")
 
 IF (status=="307")  THEN
-  urllocation = GET_VALUE (httpheader, "location:")
-  empty = httpstatus = httpheader = *
-  daten = REQUEST (urllocation, "", empty,httpstatus, httpheader)
+  urllocation = GET_VALUE (antworthdr, "location:")
+  anfragehdr = httpstatus = antworthdr = *
+  daten = REQUEST (urllocation, "", anfragehdr,httpstatus, antworthdr)
 ENDIF
 
 daten=DECODE (daten,UTF8)
