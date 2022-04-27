@@ -59,7 +59,14 @@
                     </strong>
                 </h5>
                 <h2 class="red down-100">Google-Tabellen mit TUSTEP bearbeiten</h2>
-               <!-- <h3 class=" down-25">Eine Einführung</h3>-->
+                <!-- <h3 class=" down-25">Eine Einführung</h3>-->
+                <h5 class="medium" style="color:gray"><kbd
+                        style="background: #F7F7F7; background-image:linear-gradient(rgba(255,255,255,.4),rgba(127,127,127,.2)); border-color:#DDDDDD #AAAAAA #888888 #CCCCCC; border-radius:2px; border-style:solid; border-width:1px; padding:0 .4em; text-shadow:0 1px rgba(255,255,255,.2); white-space:nowrap;"
+                        >Leertaste</kbd> oder <kbd
+                        style="background: #F7F7F7; background-image:linear-gradient(rgba(255,255,255,.4),rgba(127,127,127,.2)); border-color:#DDDDDD #AAAAAA #888888 #CCCCCC; border-radius:2px; border-style:solid; border-width:1px; padding:0 .4em; text-shadow:0 1px rgba(255,255,255,.2); white-space:nowrap;"
+                        >←</kbd> Pfeiltasten <kbd
+                        style="background: #F7F7F7; background-image:linear-gradient(rgba(255,255,255,.4),rgba(127,127,127,.2)); border-color:#DDDDDD #AAAAAA #888888 #CCCCCC; border-radius:2px; border-style:solid; border-width:1px; padding:0 .4em; text-shadow:0 1px rgba(255,255,255,.2); white-space:nowrap;"
+                        >→</kbd> für Navigation</h5>
                 <h5 class="down-25">Präsentation <a href="https://itug.github.io/ITUGJF11"
                         title="View the presentation online"
                     >https://itug.github.io/ITUGJF11</a><br />Daten <a
@@ -96,70 +103,91 @@
             </div>
             <div class="step">
                 <h2 class="red">REQUEST</h2>
-                <blockquote class="medium"><strong>Makrofunktion zum Informationsabruf von WWW-Servern</strong>
-                    <br/><br/>
-                    <strong>REQUEST (url, query)</strong> ruft eine HTML-Seite von einem WWW-Server ab oder ruft ein CGI-Script auf einem WWW-Server auf. Die URL der HTML-Seite bzw. des CGI-Scripts muss mit dem Argument <code>url</code> angegeben werden. Für das Argument <code>url</code> kann eine Variable oder eine in Anführungszeichen eingeschlossene Zeichenfolge angegeben werden. <!--Erwartet ein CGI-Script einen Querystring (METHODE=GET), kann für das Argument <code>query</code> eine Variable oder eine in Anführungszeichen eingeschlossene Zeichenfolge angegeben werden; erwartet ein CGI-Script Daten von der Standard- Eingabe (METHODE=POST), kann für das Argument <code>query</code> eine Sternvariable ange- geben werden; andernfalls kann das Argument <code>query</code> einschließlich des davor stehenden Kommas weggelassen werden.--><br/>
-                    <br/>Die Antwort des WWW-Servers wird (zum Speichern in einer Sternvariablen) als Funktionswert geliefert. In der Regel muss die Antwort noch von ISO-8859-1 oder UTF-8 nach TUSTEP umcodiert werden.</blockquote>
-            <p class="x-small right">Handbuch, 509</p></div>
+                <blockquote class="medium"><strong>Makrofunktion zum Informationsabruf von
+                        WWW-Servern</strong>
+                    <br /><br />
+                    <strong>REQUEST (url, query)</strong> ruft eine HTML-Seite von einem WWW-Server
+                    ab oder ruft ein CGI-Script auf einem WWW-Server auf. Die URL der HTML-Seite
+                    bzw. des CGI-Scripts muss mit dem Argument <code>url</code> angegeben werden.
+                    Für das Argument <code>url</code> kann eine Variable oder eine in
+                    Anführungszeichen eingeschlossene Zeichenfolge angegeben werden. <!--Erwartet ein CGI-Script einen Querystring (METHODE=GET), kann für das Argument <code>query</code> eine Variable oder eine in Anführungszeichen eingeschlossene Zeichenfolge angegeben werden; erwartet ein CGI-Script Daten von der Standard- Eingabe (METHODE=POST), kann für das Argument <code>query</code> eine Sternvariable ange- geben werden; andernfalls kann das Argument <code>query</code> einschließlich des davor stehenden Kommas weggelassen werden.--><br />
+                    <br />Die Antwort des WWW-Servers wird (zum Speichern in einer Sternvariablen)
+                    als Funktionswert geliefert. In der Regel muss die Antwort noch von ISO-8859-1
+                    oder UTF-8 nach TUSTEP umcodiert werden.</blockquote>
+                <p class="x-small right">Handbuch, 509</p>
+            </div>
             <div class="step">
-                <h2><code>REQUEST</code></h2>
-                <pre><code  class="linenumbers">$$ MODE TUSCRIPT,{},MAC
+                <h2 class="red">HTML-Seite</h2>
+                <pre><code class="linenumbers">$$ MODE TUSCRIPT,{},MAC
 
 url="https://www.itug.de"
 daten=REQUEST (url)
 
 daten=DECODE(daten,UTF8)
 </code></pre>
+                <p class="right x-small">Segment <code>REQUEST</code> aus Segmentdatei <code>skripte</code></p>
             </div>
             <div class="step">
-                <h2 class="red">Googletabelle <code>google01</code></h2>
-                <p>Beispieltabelle:</p>
+                <h2 class="red">Googletabelle</h2>
+                <p><a target="_blank" href="https://docs.google.com/spreadsheets/d/1SvgPoosblTDqQ4RBsWjBwAyTeWhIT5CQet9KiiUi7GA/edit#gid=0">Beispieltabelle</a> ITUG_Jour-Fixe11:</p>
                 <pre class="up-25 xml"><code style="font-size:1.5rem">https://docs.google.com/spreadsheets/d/1SvgPoosblTDqQ4RBsWjBwAyTeWhIT5CQet9KiiUi7GA/edit#gid=0</code></pre>
                 <div class="substep">
-                    <p>Problem: <span class="highlight">so geht es nicht !</span></p>
-                    <pre><code  class="linenumbers">$$ MODE TUSCRIPT,{},MAC
+                    <p><span class="highlight">So geht es nicht</span>:</p>
+                    <pre><code class="linenumbers">$$ MODE TUSCRIPT,{},MAC
 url="https://docs.google.com/spreadsheets/d/1SvgPoosblTDqQ4RBsWjBwAyTeWhIT5CQet9KiiUi7GA/edit#gid=0"
                         
 daten=REQUEST (url)
 </code></pre>
+                    <p class="right x-small">Segment <code>google01</code> aus Segmentdatei <code>skripte</code></p>
                 </div>
             </div>
             <div class="step">
                 <h2 class="red">Googletabelle veröffentlichen</h2>
                 <div class="row">
                     <div class="six columns">
-                        <figure class="mfp-lightbox"><a href="resources/img/google_Freigabe01.png">
-                            <img src="resources/img/google_Freigabe01.png" alt="Google im Web veröffentlichen 1"/></a></figure>
-                            </div>
-                            <div class="six columns">
-                                <figure class="mfp-lightbox"><a href="resources/img/google_Freigabe02.png"><img src="resources/img/google_Freigabe02.png" alt="Gooble im Web veröffentlichen 2"/></a></figure>
-                            </div>
+                        <figure class="mfp-lightbox">
+                            <a href="resources/img/google_Freigabe01.png">
+                                <img src="resources/img/google_Freigabe01.png"
+                                    alt="Google im Web veröffentlichen 1" />
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="six columns">
+                        <figure class="mfp-lightbox">
+                            <a href="resources/img/google_Freigabe02.png">
+                                <img src="resources/img/google_Freigabe02.png"
+                                    alt="Gooble im Web veröffentlichen 2" />
+                            </a>
+                        </figure>
+                    </div>
                 </div>
-                        
-                    
-                <p>Freigabelink:</p>
+                <p><a target="_blank" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTNAjIaR4yS49Ztyd-a8IKY9UWfadKA3eMGFGrydrUow0e07-sS-MTiiY-s1lSI5Ciqw9N3eXlhXRyN/pub?gid=0&amp;single=true&amp;output=tsv">Freigabelink</a> für Googletabelle ITUG_Jour-Fixe11:</p>
                 <pre><code style="font-size:1.5rem">https://docs.google.com/spreadsheets/d/e/2PACX-1vTNAjIaR4yS49Ztyd-a8IKY9UWfadKA3eMGFGrydrUow0e07-sS-MTiiY-s1lSI5Ciqw9N3eXlhXRyN/pub?gid=0&amp;single=true&amp;output=tsv</code></pre>
+                <p class="x-small right">Information: <a href="https://support.google.com/docs/answer/183965?hl=de" target="_blank">Google-Dokumente, -Tabellen, -Präsentationen und -Formulare veröffentlichen</a></p>
             </div>
-            <div class="step"><h2><code>google02</code></h2>
-                <p>Problem: <span class="highlight">so geht es immer noch nicht !</span></p>
+            <div class="step">
+                <h2 class="red">Veröffentlichte Googletabelle</h2>
+                <p>Aber leider geht es so <span class="highlight"> immer noch nicht !</span></p>
                 <pre><code class="linenumbers">$$ MODE TUSCRIPT,{},MAC
 url="https://docs.google.com/spreadsheets/d/e/2PACX-1vTNAjIaR4yS49Ztyd-a8IKY9UWfadKA3eMGFGrydrUow0e07-sS-MTiiY-s1lSI5Ciqw9N3eXlhXRyN/pub?gid=0&amp;single=true&amp;output=tsv"
 daten=REQUEST (url)
 </code></pre>
+                <p class="right x-small">Segment <code>google02</code> aus Segmentdatei <code>skripte</code></p>
             </div>
             <div class="step">
-                <h2>erweitertes REQUEST <code>google03</code></h2>
-<pre><code class="linenumbers">$$ MODE TUSCRIPT,{},MAC
+                <h2 class="red">erweitertes REQUEST</h2>
+                <p class="small">Das folgende Skript fragt im httpheader den <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" target="_blank">http status code</a> ab. Bei Status <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307" target="_blank">307</a> wird die eigentliche <code>location</code> des Dokumentes ermittelt.
+                <pre><code class="linenumbers">$$ MODE TUSCRIPT,{},MAC
 url="https://docs.google.com/spreadsheets/d/e/2PACX-1vTNAjIaR4yS49Ztyd-a8IKY9UWfadKA3eMGFGrydrUow0e07-sS-MTiiY-s1lSI5Ciqw9N3eXlhXRyN/pub?gid=0&amp;single=true&amp;output=tsv"
 
+query=""
 empty=httpstatus=httpheader=*
-daten=REQUEST (url,"",empty,httpstatus,httpheader)
+daten=REQUEST (url,query,empty,httpstatus,httpheader)
 
 status = SELECT (httpheader, 1)
-
 status = EXTRACT (status, ": :"|, ": :")
 
-IF (status.EQ."307")  THEN
+IF (status=="307")  THEN
   urllocation = GET_VALUE (httpheader, "location:")
   empty = httpstatus = httpheader = *
   daten = REQUEST (urllocation, "", empty,httpstatus, httpheader)
@@ -168,9 +196,9 @@ ENDIF
 daten=DECODE (daten,UTF8)
 TRACE
 x=SPLIT (daten," #\[0009\] ",names,userssince)
-</code></pre>               
+</code></pre>
+                <p class="right x-small">Segment <code>google03</code> aus Segmentdatei <code>skripte</code></p>
             </div>
-           
         </div>
         <!-- jquery -->
         <script src="vendor/jquery/jquery-1.11.0.min.js"></script>
