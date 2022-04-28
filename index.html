@@ -190,7 +190,7 @@ status = EXTRACT (status, ": :"|, ": :")
 IF (status=="307")  THEN
   urllocation = GET_VALUE (antworthdr, "location:")
   anfragehdr = httpstatus = antworthdr = *
-  daten = REQUEST (urllocation, "", anfragehdr,httpstatus, antworthdr)
+  daten = REQUEST (urllocation, query, anfragehdr,httpstatus, antworthdr)
 ENDIF
 
 daten=DECODE (daten,UTF8)
